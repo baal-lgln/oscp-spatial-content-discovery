@@ -36,8 +36,6 @@
     "pump": "^3.0.0",
     "random-access-memory": "^4.0.0",
     "reflect-metadata": "^0.1.13",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.6",
     "swagger-ui-express": "^4.2.0"
   },
   "devDependencies": {
@@ -45,7 +43,6 @@
     "@types/express-jwt": "6.0.3",
     "@types/helmet": "^4.0.0",
     "@types/node": "^16.11.12",
-    "@types/request-promise": "^4.1.48",
     "concurrently": "^6.4.0",
     "nodemon": "^2.0.15",
     "prettier": "2.5.1",
