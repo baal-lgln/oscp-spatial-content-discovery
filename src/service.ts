@@ -4,7 +4,7 @@ import { ScrDto } from "./models/scr.dto";
 import { validateOrReject } from "class-validator";
 import kappa from "kappa-core";
 import ram from "random-access-memory";
-import memdb from "memdb";
+import { MemoryLevel } from "memory-level";
 import Osm from "kappa-osm";
 import dotenv from "dotenv";
 import * as Swarm from "./swarm";
@@ -33,7 +33,7 @@ TOPICS.forEach((topic) => {
     core: kappa(KAPPA_CORE_DIR + "/" + GEOZONE + "_" + topic, {
       valueEncoding: "json",
     }),
-    index: memdb(),
+    index: new MemoryLevel({ valueEncoding: 'json' }),
     storage: function (name, cb) {
       cb(null, ram());
     },
@@ -141,13 +141,13 @@ export const findHex = async (
   }
 
   const osmQuery = new Promise<Element[]>((resolve, reject) => {
-    kappaCores[topic].query([bbox[0], bbox[1], bbox[2], bbox[3]], function (
-      err,
-      nodes
-    ) {
-      if (err) reject(err);
-      else resolve(nodes);
-    });
+    kappaCores[topic].query(
+      [bbox[0], bbox[1], bbox[2], bbox[3]],
+      function (err, nodes) {
+        if (err) reject(err);
+        else resolve(nodes);
+      }
+    );
   });
 
   let nodes: Element[] = await osmQuery;
